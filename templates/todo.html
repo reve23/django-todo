@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            position: absolute;
+            left: 34rem;
+        }
+
+
+        .input{
+            padding: .5rem;
+            width: 25rem;
+            border-radius: 10px;
+        }
+        .btn{
+            padding: 10px;
+            width: 80px;
+            border-radius: 10px;
+            background: transparent;
+        }
+        li{
+            border: 2px solid;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        ol{
+            margin: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .del{
+            color:white;
+            background:rgb(211, 67, 67);
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>This is a todo page</h1>
+<form action="/addTodo/" method="post">
+{% csrf_token %}
+<input class="input" type="text" name="content" placeholder="Enter your todo">
+<input class="btn" type="submit" value="Add">
+</form>
+<ol>
+    {% for items in all_todo_items%}
+    <li>{{items.content}}
+        <form action="/deleteTodo/{{items.id}}/" method="post" style="display:inline;">
+            {% csrf_token %}
+            <input  class="del" type="submit" value="Delete" />
+        </form>
+    </li>
+
+    {% endfor %}
+</ol>
+</body>
+</html>
